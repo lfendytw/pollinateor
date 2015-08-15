@@ -1,0 +1,14 @@
+{
+  "name": "pollinateor",
+  "version": "0.0.0",
+  "description": "bees and stuff",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "express": "~4.13.3"
+  }
+}
