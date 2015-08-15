@@ -77,8 +77,11 @@ app.get('/client', function (req, res){
   res.render('client', data);
 });
 
+var filter = require('profanity-filter');
+filter.setReplacementMethod('word');
+filter.seed('profanity');
 app.post('/question', function (req, res){
-  var val = req.body.value.toLowerCase();
+  var val = filter.clean(req.body.value.toLowerCase());
   questions[val] = true;
   feedback.store(val);
 

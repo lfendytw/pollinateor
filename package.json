@@ -12,6 +12,7 @@
     "express": "~4.13.3",
     "body-parser": "~1.13.3",
     "lodash": "~3.10.1",
-    "express-handlebars": "~2.0.1"
+    "express-handlebars": "~2.0.1",
+    "profanity-filter": "~0.2.1"
   }
 }
