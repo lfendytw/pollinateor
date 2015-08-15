@@ -6,21 +6,31 @@
     <input class="button-primary" type="button" value="{{this}}"></input>
   </div>
   {{/each}}
+  <input class="my-question" type="text"/><input class="ask" type="button" value="Ask!"/> 
 </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script>
   $(document).ready(function(){
-      $('input').on('click', function(evt){
-        var val = $(evt.target).val();
+
+      var ajaxPost = function(url, val){
         var toPost = {value: val};
-        $.ajax({
+        return $.ajax({
           type: 'POST',
-          url: 'http://10.6.20.181:3000/feedback',
+          url: url,
           data: JSON.stringify(toPost),
           contentType: 'application/json'
         });
+      };
 
+      $('input.button-primary').on('click', function(evt){
+        var val = $(evt.target).val();
+        ajaxPost('http://10.6.20.181:3000/feedback', val);
+      });
+
+      $('input.ask').on('click', function(evt){
+        var val = $('input.my-question').val();
+        ajaxPost('http://10.6.20.181:3000/question', val);
       });
   });
   </script>

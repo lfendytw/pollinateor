@@ -48,8 +48,15 @@ app.use('/public', express.static('public'));
 var questions = ["Speaking Too slow", "Speaking Too Fast", "Volume Too Quiet"];
 
 app.get('/client', function (req, res){
- var data = {'questions': questions}; 
+ var data = {'questions': questions};
   res.render('client', data);
+});
+
+app.post('/question', function (req, res){
+  questions.push(req.body.value);
+  feedback.store(req.body.value);
+
+  res.send('{location: "/client"}');
 });
 
 app.post('/feedback', function(req, res){
