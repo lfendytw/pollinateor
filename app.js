@@ -37,15 +37,19 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 app.get('/result', function (req, res) {
-  var data = {"feedbacks":feedback.retrieve()};
+  var data = {'feedbacks':feedback.retrieve()};
   res.render('home', data);
 });
 
 
 app.use('/public', express.static('public'));
 
+
+var questions = ["Speaking Too slow", "Speaking Too Fast", "Volume Too Quiet"];
+
 app.get('/client', function (req, res){
-  res.render('client');
+ var data = {'questions': questions}; 
+  res.render('client', data);
 });
 
 app.post('/feedback', function(req, res){

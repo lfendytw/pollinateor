@@ -1,20 +1,12 @@
 
 <h1>Feedback</h1>
 <div class="container">
+  {{#each questions}}
   <div class="row">
-    <input class="button-primary" type="button" value="Can't see up the back"></input>
+    <input class="button-primary" type="button" value="{{this}}"></input>
   </div>
-  <div class="row">
-    <input class="button-primary" type="button" value="Speaking too fast"></input>
-  </div>
-  <div class="row">
-    <input class="button-primary" type="button" value="Speaking too slow"></input>
-  </div>
-  <div class="row">
-    <input class="button-primary" type="button" value="Volume too quiet"></input>
-  </div>
+  {{/each}}
 </div>
-
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script>
