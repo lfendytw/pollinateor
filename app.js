@@ -8,6 +8,22 @@ app.use(bodyParser.json());
 var feedback = function(){
   var storage = {};
 
+  var calcDecay = function(oldTime, nowTime){
+    var age = (nowTime - oldTime)/10000;
+
+    return (1 / (age + 1));
+  };
+
+  var sumDecay = function(arr){
+    var nowTime = new Date();
+    var sum = 0;
+    _.each(
+    arr,function(oldTime){
+      sum += calcDecay(oldTime,nowTime);
+    });
+    return sum;
+  };
+
   var store = function(item){
     storage[item] = storage[item] || [] ;
     storage[item].push(new Date());
@@ -16,7 +32,7 @@ var feedback = function(){
   var retrieve = function(){
     var arr = [];
     _.each(storage, function(v,k){
-      arr.push({feedback:k,num:v.length});
+      arr.push({feedback:k,num:sumDecay(v)});
     });
 
     arr.sort(function(a,b){return b.num - a.num;});
@@ -29,6 +45,11 @@ var feedback = function(){
     retrieve: retrieve
   };
 }();
+
+
+
+
+
 
 
 var exphbs  = require('express-handlebars');
