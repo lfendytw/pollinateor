@@ -9,14 +9,14 @@ var feedback = function(){
   var storage = {};
 
   var store = function(item){
-    storage[item] = storage[item] || 0;
-    storage[item]++;
+    storage[item] = storage[item] || [] ;
+    storage[item].push(new Date());
   };
 
   var retrieve = function(){
     var arr = [];
     _.each(storage, function(v,k){
-      arr.push({feedback:k,num:v});
+      arr.push({feedback:k,num:v.length});
     });
 
     arr.sort(function(a,b){return b.num - a.num;});
@@ -43,7 +43,6 @@ app.get('/result', function (req, res) {
 app.get('/result-json', function (req, res) {
   res.set('Content-Type', 'application/json');
   res.send(feedback.retrieve());
-  //res.send(JSON.stringify(feedback.retrieve()));
 });
 
 
