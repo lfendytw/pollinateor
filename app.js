@@ -45,23 +45,25 @@ app.get('/result', function (req, res) {
 app.use('/public', express.static('public'));
 
 
-var questions = ["Speaking Too slow", "Speaking Too Fast", "Volume Too Quiet"];
+var questions = { "speaking too slow":true, "speaking too fast":true, "volume too quiet":true};
 
 app.get('/client', function (req, res){
- var data = {'questions': questions};
+ var data = {'questions': _.keys(questions)};
   res.render('client', data);
 });
 
 app.post('/question', function (req, res){
-  questions.push(req.body.value);
-  feedback.store(req.body.value);
+  var val = req.body.value.toLowerCase();
+  questions[val] = true;
+  feedback.store(val);
 
-  res.send('{location: "/client"}');
+  res.send('ok');
 });
 
 app.post('/feedback', function(req, res){
   console.log(req.body);
-  feedback.store(req.body.value);
+  var val = req.body.value.toLowerCase();
+  feedback.store(val);
   res.send('saved');
 });
 

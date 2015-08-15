@@ -25,12 +25,15 @@
 
       $('input.button-primary').on('click', function(evt){
         var val = $(evt.target).val();
-        ajaxPost('http://10.6.20.181:3000/feedback', val);
+        ajaxPost('/feedback', val);
       });
 
       $('input.ask').on('click', function(evt){
         var val = $('input.my-question').val();
-        ajaxPost('http://10.6.20.181:3000/question', val);
+        ajaxPost('/question', val)
+          .done(function( data ) {
+            location.reload();
+          });
       });
   });
   </script>
