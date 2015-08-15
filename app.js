@@ -37,8 +37,13 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 app.get('/result', function (req, res) {
-  var data = {'feedbacks':feedback.retrieve()};
-  res.render('home', data);
+  res.render('result');
+});
+
+app.get('/result-json', function (req, res) {
+  res.set('Content-Type', 'application/json');
+  res.send(feedback.retrieve());
+  //res.send(JSON.stringify(feedback.retrieve()));
 });
 
 
