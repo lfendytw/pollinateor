@@ -1,1 +1,4 @@
 Bees and flowers
+
+start the app with:
+  node app.js

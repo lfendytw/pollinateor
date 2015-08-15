@@ -9,6 +9,9 @@
   "author": "",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "express": "~4.13.3"
+    "express": "~4.13.3",
+    "body-parser": "~1.13.3",
+    "lodash": "~3.10.1",
+    "handlebars": "~3.0.3"
   }
 }
