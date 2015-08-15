@@ -36,13 +36,17 @@ var exphbs  = require('express-handlebars');
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-app.get('/', function (req, res) {
+app.get('/result', function (req, res) {
   var data = {"feedbacks":feedback.retrieve()};
   res.render('home', data);
 });
 
 
-app.use('/client', express.static('public'));
+app.use('/public', express.static('public'));
+
+app.get('/client', function (req, res){
+  res.render('client');
+});
 
 app.post('/feedback', function(req, res){
   console.log(req.body);
