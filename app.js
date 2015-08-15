@@ -7,16 +7,21 @@ app.use(bodyParser.json());
 
 var feedback = function(){
   var storage = {};
+  var expiry = 30000;
 
   var calcDecay = function(oldTime, nowTime){
-    var age = (nowTime - oldTime)/10000;
+    if ((nowTime - oldTime) > expiry){
+      return 0;
+    }
 
+    var slidingWindowAge = (nowTime - oldTime) < 5000 ? 0 : (nowTime - oldTime);
+    var age = slidingWindowAge/5000;
     return (1 / (age + 1));
   };
 
   var sumDecay = function(arr){
-    var nowTime = new Date();
     var sum = 0;
+    var nowTime = new Date();
     _.each(
     arr,function(oldTime){
       sum += calcDecay(oldTime,nowTime);
@@ -31,8 +36,13 @@ var feedback = function(){
 
   var retrieve = function(){
     var arr = [];
+
     _.each(storage, function(v,k){
-      arr.push({feedback:k,num:sumDecay(v)});
+      var rating = sumDecay(v);
+
+      if (rating != 0) {
+        arr.push({feedback:k,num:rating});
+      }
     });
 
     arr.sort(function(a,b){return b.num - a.num;});
